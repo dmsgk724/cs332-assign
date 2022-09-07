@@ -6,6 +6,7 @@
 
 dist/*
 target/
+lib/
 lib_managed/
 src_managed/
 project/project/
@@ -20,6 +21,10 @@ project/plugins/project/
 *.class
 *.log
 
+build
+.settings
+.classpath
+.project
 
 *.iml
 *.ipr
