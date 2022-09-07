@@ -8,6 +8,8 @@ dist/*
 target/
 lib_managed/
 src_managed/
+project/project/
+project/target/
 project/boot/
 project/plugins/project/
 .history
@@ -18,12 +20,18 @@ project/plugins/project/
 *.class
 *.log
 
-# End of https://www.gitignore.io/api/sbt,scala
 
 *.iml
 *.ipr
 *.iws
 .idea
 out
+
+.history
+.scala_dependencies
+.cache-main
+
+# End of https://www.gitignore.io/api/sbt,scala
+
 
 .DS_Store
