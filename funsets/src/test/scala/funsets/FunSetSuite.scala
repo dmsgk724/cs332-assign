@@ -86,7 +86,7 @@ class FunSetSuite extends FunSuite {
    * Once you finish your implementation of "singletonSet", exchange the
    * function "ignore" by "test".
    */
-  ignore("singletonSet(1) contains 1") {
+  test("singletonSet(1) contains 1") {
     
     /**
      * We create a new instance of the "TestSets" trait, this gives us access
@@ -101,7 +101,7 @@ class FunSetSuite extends FunSuite {
     }
   }
 
-  ignore("union contains all elements") {
+  test("union contains all elements") {
     new TestSets {
       val s = union(s1, s2)
       assert(contains(s, 1), "Union 1")
@@ -109,4 +109,56 @@ class FunSetSuite extends FunSuite {
       assert(!contains(s, 3), "Union 3")
     }
   }
+
+  test(testName="intersect test"){
+    new TestSets{
+      val s= intersect((x:Int)=>Array(1,2) contains x,singletonSet(1))
+      assert(contains(s,1), "Intersect 1")
+      assert(!contains(s,2), "Intersect 2")
+    }
+  }
+
+  test(testName = "diff test") {
+    new TestSets {
+      val s = diff((x: Int) => Array(1, 2) contains x, singletonSet(1))
+      assert(!contains(s, 1), "diff 1")
+      assert(contains(s, 2), "diff 2")
+    }
+  }
+
+  test(testName = "filter test") {
+    new TestSets {
+      val s = filter((x: Int) => Array(1, 2,3) contains x, (y:Int)=> Array(1,2) contains y)
+      assert(contains(s, 1), "filter 1")
+      assert(contains(s, 2), "filter 2")
+      assert(!contains(s, 3), "filter 3")
+    }
+  }
+
+  test(testName = "forall test") {
+    new TestSets {
+      assert(forall((x: Int) => Array(1, 2) contains x, (y: Int) => Array(1, 2) contains y),"forall1")
+      assert(!forall((x: Int) => Array(1, 2, 3) contains x, (y: Int) => Array(1, 2) contains y),"forall2")
+    }
+  }
+
+  test(testName = "exists test") {
+    new TestSets {
+      assert(exists((x: Int) => Array(1, 2,3,4) contains x, (y: Int) => Array(1, 2) contains y), "exists1")
+      assert(!exists((x: Int) => Array(5,7,9) contains x, (y: Int) => Array(1, 2) contains y), "exists2")
+    }
+  }
+
+  test(testName = "map test") {
+    new TestSets {
+      val s=map((x: Int) => Array(1, 2, 3, 4) contains x, (y:Int)=>(2*y:Int))
+      assert(forall(s, (x:Int)=>Array(2,4,6,8) contains x),"map1")
+
+    }
+  }
+
+
+
+
+
 }
