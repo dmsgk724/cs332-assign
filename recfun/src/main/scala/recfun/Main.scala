@@ -22,7 +22,22 @@ object Main {
   /**
    * Exercise 2
    */
-  def balance(chars: List[Char]): Boolean = ???
+  def balance(chars: List[Char]): Boolean = {
+    def balancing(st:Int, chars:List[Char]):Boolean={
+      if(chars.isEmpty) st==0
+      else
+        if(chars.head!='('&&chars.head!=')')balancing(st,chars.tail)
+        else if(chars.head=='(') balancing(st+1,chars.tail)
+        else
+          if(chars.head==')') st>0 && balancing(st-1,chars.tail)
+          else balancing(st,chars.tail)
+    }
+    balancing(0,chars)
+
+
+  }
+
+
 
   /**
    * Exercise 3
