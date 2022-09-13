@@ -61,6 +61,7 @@ object FunSets {
     def iter(a: Int): Boolean = {
       if (a>bound) true
       else if (!p(a)&&contains(s,a)) false
+      else if(!contains(s,a)) iter(a+1)
       else iter(a+1)
     }
     iter(-bound)
