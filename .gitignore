@@ -12,6 +12,8 @@ project/plugins/project/
 .history
 .cache
 .lib/
+build.sbt
+
 
 *.class
 *.log
