@@ -1,14 +1,10 @@
-# Created by https://www.gitignore.io/api/sbt,scala
-
-### SBT ###
-# Simple Build Tool
-# http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
 
 dist/*
 target/
 lib/
 lib_managed/
 src_managed/
+project/
 project/project/
 project/target/
 project/boot/
@@ -17,7 +13,6 @@ project/plugins/project/
 .cache
 .lib/
 
-### Scala ###
 *.class
 *.log
 
@@ -35,8 +30,6 @@ out
 .history
 .scala_dependencies
 .cache-main
-
-# End of https://www.gitignore.io/api/sbt,scala
 
 
 .DS_Store
