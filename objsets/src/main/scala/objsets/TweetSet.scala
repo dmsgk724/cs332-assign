@@ -34,7 +34,6 @@ class Tweet(val user: String, val text: String, val retweets: Int) {
  * [1] http://en.wikipedia.org/wiki/Binary_search_tree
  */
 abstract class TweetSet {
-  def isEmpty:Boolean
   /**
    * This method takes a predicate and returns a subset of all the elements
    * in the original set for which the predicate is true.
@@ -109,7 +108,6 @@ abstract class TweetSet {
 }
 
 class Empty extends TweetSet {
-  def isEmpty:Boolean=true
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = acc
 
   /**
@@ -132,7 +130,6 @@ class Empty extends TweetSet {
 }
 
 class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
-  def isEmpty:Boolean=false
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = {
    if(p(elem)) left.filterAcc(p,right.filterAcc(p,acc.incl(elem)))
    else left.filterAcc(p,right.filterAcc(p,acc))
@@ -166,17 +163,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
 
   def mostRetweeted: Tweet ={
-    lazy val leftMax=left.mostRetweeted
-    lazy val rightMax=right.mostRetweeted
-    if(!left.isEmpty && leftMax.retweets>=elem.retweets)//왼쪽 안비었고 왼쪽이 더큼
-      if (!right.isEmpty && rightMax.retweets>=leftMax.retweets) rightMax
-      else leftMax
-    else if(!right.isEmpty && elem.retweets<=rightMax.retweets) //오른쪽 안비었고 오른쪽이 더 큼
-      if(!left.isEmpty && rightMax.retweets>=rightMax.retweets) leftMax
-      else rightMax
-    else  elem//왼쪽 안비었지만 오른쪽이 더큼 + 왼쪽 비었음 +오른쪽 비었음  +오른쪽 왼쪽 둘다 빔
-
-
+   findMaxVal(elem)
   }
   def findMaxVal (maxVal:Tweet): Tweet =
   {
