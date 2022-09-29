@@ -7,15 +7,6 @@ import common._
  *
  */
 object Huffman {
-  def main(args: Array[String]) {
-    println(decodedSecret)
-    println(makeOrderedLeafList(List(('t', 0), ('e', 98), ('x', 10))))
-    assert(secret==encode(frenchCode)(decodedSecret))
-    println("hello")
-    println(quickEncode(frenchCode)(decodedSecret))
-    val fast = decode(frenchCode, quickEncode(frenchCode)(decodedSecret))
-    assert(decodedSecret==fast)
-  }
   /**
    * A huffman code is represented by a binary tree.
    *
@@ -35,13 +26,13 @@ object Huffman {
   // Part 1: Basics
 
   def weight(tree: CodeTree): Int = tree match {
-    case f: Fork=>f.weight
-    case l: Leaf=>l.weight
+    case f:Fork=> f.weight
+    case l:Leaf=> l.weight
   } // tree match ...
 
   def chars(tree: CodeTree): List[Char] = tree match {
     case f:Fork=>f.chars
-    case l: Leaf=>List(l.char)
+    case l:Leaf=>List(l.char)
   }// tree match ...
 
   def makeCodeTree(left: CodeTree, right: CodeTree) =
@@ -100,7 +91,7 @@ object Huffman {
    * of a leaf is the frequency of the character.
    */
   def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] = {
-    val x = freqs.sortWith(_._2 > _._2)
+    val x = freqs.sortWith(_._2 > _._2)//큰것 부터 정렬
     val emptyList = List[Leaf]()
     changeTupleToLeafList(x, emptyList)
   }
@@ -131,7 +122,7 @@ object Huffman {
    * unchanged.
    */
   def combine(trees: List[CodeTree]): List[CodeTree] = {
-    if(trees.isEmpty || singleton(trees))trees
+    if(trees.isEmpty||singleton(trees))trees
     else {
       trees.sortBy(tree=>weight(tree))
       makeCodeTree(trees.head,trees.tail.head)::trees.tail.tail
@@ -157,7 +148,7 @@ object Huffman {
    */
   def until(isSingleton: List[CodeTree]=>Boolean, func_combine: List[CodeTree]=>List[CodeTree])(trees: List[CodeTree]):List[CodeTree] = {
     if(isSingleton(trees)) trees
-    else until(isSingleton,combine) (combine(trees))
+    else until(isSingleton,func_combine) (func_combine(trees))
 
   }
 
@@ -282,6 +273,6 @@ object Huffman {
    * and then uses it to perform the actual encoding.
    */
   def quickEncode(tree: CodeTree)(text: List[Char]): List[Bit] = {
-  text.flatMap(codeBits(convert(tree))(_))
+  text.flatMap(t=>codeBits(convert(tree))(t))
   }
 }
