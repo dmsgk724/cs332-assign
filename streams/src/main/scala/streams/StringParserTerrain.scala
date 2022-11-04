@@ -76,7 +76,7 @@ trait StringParserTerrain extends GameDef {
       val x=yIndexAccordingToX.indexWhere(k=>k>=0)
       //0
       Pos(x,yIndexAccordingToX(x))
-      // x(0) == 1, y==0
+
 
     }
 
